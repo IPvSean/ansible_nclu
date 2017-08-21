@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: run show config commands
+      shell: 'net show config commands | grep net | grep -v dot1x | grep -v "del all" > {{inventory_hostname}}_nclu'
+
+    - name: fetch the file and store it locally
+      fetch: dest=save_nclu/{{inventory_hostname}}_nclu src=/home/cumulus/{{inventory_hostname}}_nclu flat=yes
+      
+    - name: run show config files
+      shell: 'net show config files > {{inventory_hostname}}_config_files'      
+
+    - name: fetch the file and store it locally
+      fetch: dest=save_config_files/{{inventory_hostname}}_config_files src=/home/cumulus/{{inventory_hostname}}_config_files flat=yes
