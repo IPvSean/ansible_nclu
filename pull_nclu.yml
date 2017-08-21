@@ -4,12 +4,21 @@
   tasks:
     - name: run show config commands
       shell: 'net show config commands | grep net | grep -v dot1x | grep -v "del all" > {{inventory_hostname}}_nclu'
-
+      #xxplanation of  grep commands
+      # '| grep net' removes all non-net commands (e.g. comments)
+      # '| grep -v dot1x removes dot1x commands when not configured, see internal Cumulus Networks bug CM-17143
+      # '| grep -v "del all"' removes the del all command from the beginning of the output, otherwise replay won't be idempotent
+      
     - name: fetch the file and store it locally
       fetch: dest=save_nclu/{{inventory_hostname}}_nclu src=/home/cumulus/{{inventory_hostname}}_nclu flat=yes
+      # This task grabs the output from the previous command and stores it as a flat-file locally on the machine running ansible
+      
+      #The next two stanzas are not required, but grabs the rendered config if you prefer them over NCLU (net) commands
       
     - name: run show config files
-      shell: 'net show config files > {{inventory_hostname}}_config_files'      
+      shell: 'net show config files > {{inventory_hostname}}_config_files'
+      # This grabs all the rendered configurations (vs the net commands)
 
     - name: fetch the file and store it locally
       fetch: dest=save_config_files/{{inventory_hostname}}_config_files src=/home/cumulus/{{inventory_hostname}}_config_files flat=yes
+      # This task grabs the rendered configuration from the previous command and stores it locally on the machine running ansible
