@@ -1,7 +1,7 @@
 # Cumulus Linux NCLU Module for Ansible
 This Git Repo is about Backing up Existing Configurations and replaying them back to your gear with the NCLU module.  Click this link for more info on the [Cumulus Networks NCLU Module](http://docs.ansible.com/ansible/latest/nclu_module.html)
 
-![Graphic Illustrating Push and Pull playbooks for NCLU commands][pushpull.png]
+![Graphic Illustrating Push and Pull playbooks for NCLU commands](pushpull.png)
 
 ## Background Info
 
