@@ -17,13 +17,13 @@ To run the playbook you use the ansible_playbook command.  The two playbooks wil
 ansible-playbook pull_nclu.yml
 ```
 
-The pull_nclu.yml playbook will create two folders.  One called save_nclu/<hostname>_nclu where it is a single flat file per host in your Ansible setup with all the net commands required to rebuild the config. There will also be rendered config (what the config will actually look like if you cat the flat-files (e.g. `/etc/network/interfaces` or `/etc/quagga/Quagga.conf`).  The rendered config will be stored under config_files/<hostname>.
+The pull_nclu.yml playbook will create two folders.  One called `save_nclu/<hostname>_nclu` where it is a single flat file per host in your Ansible setup with all the net commands required to rebuild the config. There will also be rendered config (what the config will actually look like if you cat the flat-files (e.g. `/etc/network/interfaces` or `/etc/quagga/Quagga.conf`).  The rendered config will be stored under `config_files/<hostname>`.
 
 ```
 ansible-playbook push_nclu.yml
 ```
 
-The push_nclu.yml commands simply replays the net commands back to the switch.  The playbook will look in the save_nclu directory for the corresponding host and play each net command back to the host line by line.  The Cumulus Linux NCLU Ansible module is idempotent so each task will return "GREEN" OK if the net command is already configured.
+The push_nclu.yml commands simply replays the net commands back to the switch.  The playbook will look in the `save_nclu` directory for the corresponding host and play each net command back to the host line by line.  The Cumulus Linux NCLU Ansible module is idempotent so each task will return `"GREEN"` i.e. `"OK"` if the net command is already configured.
 
 
 ## Background Info
